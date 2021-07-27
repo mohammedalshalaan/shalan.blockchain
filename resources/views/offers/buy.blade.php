@@ -113,7 +113,7 @@ from: myAccountAddress, // default from address
 
 
 $("#button").click(function(){ 
-    //$("#loader").show();
+
     
     ethereum
   
