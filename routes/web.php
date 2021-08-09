@@ -1,14 +1,23 @@
 <?php
+namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\UsersController;
+use Auth;
 
 //Users - Admin
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
-    Route::resource('/users', 'UsersController',['except'=>['show','create','store']]);
+    Route::resource('/users', 'UsersController',['except'=>['show','create','store','profile']]);
 });
+ 
+//Users
+
+Route::group(['middleware'=>'auth', 'prefix'=> 'users'], function(){
+    Route::get('/profile', 'UserController@profile')->name('users.profile');
+});
+
 
 // Areas
 
@@ -28,6 +37,8 @@ Route::group(['middleware'=>'auth', 'prefix'=> 'areas'], function(){
 // Offers
 
 Route::group(['middleware'=>'auth', 'prefix'=> 'offers'], function(){
+
+    Route::get('/verify', 'OfferController@verify')->name('offers.verify');
     
     Route::post('/new/{area}', 'OfferController@addblog')->name('offers.addblog');
 
@@ -48,6 +59,8 @@ Route::group(['middleware'=>'auth', 'prefix'=> 'offers'], function(){
     Route::post('/confirm/{offer}', 'OfferController@confirm')->name('offers.confirm');
     
     Route::delete('/{id}', 'OfferController@destroy')->name('offers.destroy');
+    
+  
 });
 
 //Comments

@@ -42,9 +42,10 @@
                                     <table class="table">
                                     <thead> 
                                             <tr>
-                                            <th scope="col">#</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Price (wei)</th>
                                             <th scope="col">Title:</th>
-                                            <th scope="col">Created By</th>
+                                            <th scope="col">The Owner</th>
                                             <th scope="col">Total Of Comments</th>
                                             <th scope="col">Image</th>
                                             <th scope="col">Actions:</th>
@@ -55,6 +56,7 @@
                                         @foreach($offers as $offer)
                                                 <tr>          
                                                         <th scope="row">{{$offer->id}}</th>
+                                                        <td>{{$offer->value}}</td>
                                                         <td>{{$offer->title}}</td>
                                                         <td>{{$offer->user->name}}</td>
                                                         <td>{{$offer->comments->count()}}</td>

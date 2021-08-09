@@ -55,7 +55,7 @@ class AreaController extends Controller
 
     public function show(area $area)
     {
-        $offers = $area->offers()->where('state' ,'=', 'The offer has been saved by the blockchain technology.')->latest()->paginate(5);
+        $offers = $area->offers()->where('state' ,'=', 'The real is available, and it has been saved by the system.')->latest()->paginate(5);
         //$offers = $area->offers->where('state' ,'=', 'true');
         //$offers = $area->latest()->paginate(5);
         /*
@@ -65,6 +65,9 @@ class AreaController extends Controller
                 ->get();
         
 */
+        $offersForSell = $area->offers()->where('state' ,'=', 'The real is available, and it has been saved by the system.')->count();
+        $area->total_offer_for_sell = $offersForSell;
+        $area->save();
         //$offers = DB::table('offers')->select('state', false);
         $user = Auth::user();
        

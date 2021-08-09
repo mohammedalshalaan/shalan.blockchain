@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\User;
-
+use Auth;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -54,4 +54,11 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('message', 'user ' .$name. ' was deleted');
     }
+
+    public function profile()
+    {
+        $user = Auth::user();
+       
+        return view('admin.users.profile', ['user'=>$user]);   
+     }
 }

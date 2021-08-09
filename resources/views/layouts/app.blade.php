@@ -50,6 +50,14 @@ div.sticky {
     display:none;
 }
 
+div.fleft { float: left; } 
+
+div.justified {
+        display: flex;
+        justify-content: center;
+        
+    }
+
 </style>
 
 
@@ -122,19 +130,21 @@ div.sticky {
                                 <a class="dropdown-item" href="{{ route('offers.index')}}"> Your Offers</a>
                                 <a class="dropdown-item" href="{{ route('comments.index')}}"> Your Comments</a>
                                 <a class="dropdown-item" href="{{ route('personal.analysis')}}">Analysis</a>
+                                <a class="dropdown-item" href="{{ route('users.profile')}}">User Profile</a>
+                                <a class="dropdown-item" href="{{ route('offers.verify')}}">Hash Verify</a>
                                 
-                                
+                                @can('manage-users')
+
+                                <a class="dropdown-item" href="{{ route('admin.users.index')}}">
+                                User Roles</a>
+                                @endcan
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    @can('manage-users')
-
-                                    <a class="dropdown-item" href="{{ route('admin.users.index')}}">
-                                    User Roles</a>
-                                    @endcan
-
+                                   
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>

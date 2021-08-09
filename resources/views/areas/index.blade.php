@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-11">
             <div class="card">
-                <div class="p-3 mb-2 bg-primary text-white"><h2><p class="text-center">The Areas</h2></div>
+                <div class="p-3 mb-2 bg-primary text-white"><h2><p class="text-center">The Cities in Country</h2></div>
                     <div class="card-body">
                         <table class="table">
                                 <thead> 
@@ -24,7 +24,7 @@
                                                 <tr>          
                                                         <th scope="row">{{$area->id}}</th>
                                                         <td>{{$area->title}}</td>
-                                                        <td>2</td>
+                                                        <td>{{$area->total_offer_for_sell}}</td>
                                                         <td>
                                                         <a href="{{route('areas.show',$area)}}"><button type="button" class="btn btn-primary float-left">show</button></a>                                              
                                                         

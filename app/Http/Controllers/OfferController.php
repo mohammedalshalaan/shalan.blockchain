@@ -12,6 +12,7 @@ use App\Document;
 use App\User;
 use App\Mail\thefinalmail;
 use Illuminate\Support\Facades\Mail;
+use kornrunner\Keccak;
 
 use Auth;
 use Illuminate\Support\Facades\DB;
@@ -74,7 +75,7 @@ class OfferController extends Controller
         ]); 
        
         //owner
-        $string = "0xcf8191da000000000000000000000000"; //0xd96a094a
+        $string = "0xc046cbe5000000000000000000000000"; //0xd96a094a
         $string2 = $validatedData['owner'];
         $string2 = preg_replace('/0x/','', $string2);
         $string .= $string2;
@@ -105,7 +106,7 @@ class OfferController extends Controller
        $offer->value = $validatedData['value'];
        $offer->certificate_type = $validatedData['certificate_type'];
        $offer->certificate_id = $validatedData['certificate_id'];
-       $offer->owner = $string2;
+       $offer->owner = $validatedData['owner'];
        $offer->save();
 
 
@@ -258,10 +259,10 @@ class OfferController extends Controller
 
      public function buy(Offer $offer)
      {
-         
+        $user = Auth::user();
          $offer = Offer::findOrFail($offer->id);
 
-         return view('offers.buy',['offer'=>$offer]); 
+         return view('offers.buy',['offer'=>$offer, 'user' =>$user]); 
          
      }
 
@@ -288,7 +289,13 @@ class OfferController extends Controller
     
        
        $offer->hash = $string;
-       $offer->state = $validatedData['state'];
+
+       if ($validatedData['state'] == "The real has been saved by the blockchain technology."){
+        $offer->state = "The real is available, and it has been saved by the system.";
+       }else{
+           $offer->state = $validatedData['state'];
+       }
+       
        $offer->owner = $validatedData['theOwner'];
        $offer->save();
     
@@ -298,13 +305,23 @@ class OfferController extends Controller
         $title = $offer->title;
         $area = Area::findOrFail($offer->area_id);
         $offers = $area->offers()->latest()->paginate(5);
-    /*
-      return redirect()->route('areas.show', ['area'=>$area, 'offers'=>$offers , 'user'=>$user])
-    ->with('success', 'Offer: '.$title. ' was saved');
-    */
+       
+        
+
         $user = Auth::user();
-        return redirect()->route('areas.show', ['area'=>$area, 'offers'=>$offers , 'user'=>$user])
+        return view('offers.confirm', ['area'=>$area, 'offers'=>$offers , 'user'=>$user, 'offer'=>$offer])
         ->with('success', 'Offer: '.$title. ' was sold');
  
     }
+
+    public function verify(){
+        
+        
+
+       
+        return view('offers.verify'); 
+
+    }
+
+
 }

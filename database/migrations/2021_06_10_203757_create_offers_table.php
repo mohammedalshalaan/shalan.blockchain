@@ -28,6 +28,7 @@ class CreateOffersTable extends Migration
             $table->text('hash_picture',500)->nullable();
             $table->text('certificate_type',500)->nullable();
             $table->text('certificate_id',500)->nullable();
+           
             
 
 
