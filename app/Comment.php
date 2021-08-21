@@ -10,7 +10,7 @@ class Comment extends Model
     
 
     protected $fillable = [
-        'body'
+        'content'
     ];
     public function user(){
 

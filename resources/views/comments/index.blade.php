@@ -24,7 +24,7 @@
                                                 @foreach($comments as $comment)
                                                         <tr>          
                                                                 <th scope="row">{{$comment->id}}</th>
-                                                                <td>{{$comment->body}}</td>
+                                                                <td>{{$comment->content}}</td>
                                                                 <td>{{$comment->offer->title}}</td>
                                                                 <td>{{$comment->user->name}}</td>
                                                                 <td>

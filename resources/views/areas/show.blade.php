@@ -18,8 +18,7 @@
                     <div class="card">
                         <div class="p-3 mb-3 bg-primary text-white"><h2><p class="text-center"> Area's Title : {{$area->title}}</h2></div>
                             <div class="card-body">
-                                <div class="d-inline p-2 bg-success text-white">The total of offers: {{$area->offers()->count()}}</div>
-                                    <br/><br />
+                                    
                                     <form action="{{route('offers.addblog',$area)}}" method="post">
                                         @csrf   
                                         

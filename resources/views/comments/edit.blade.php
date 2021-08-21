@@ -24,7 +24,7 @@
                                         
                                         <div class="mb-4">
                                         <label class="form-label">The Comment</label>
-                                        <textarea class="form-control"  name="body" placeholder="Comment" rows=3 >{{$comment->body}}</textarea>
+                                        <textarea class="form-control"  name="content" placeholder="Comment" rows=3 >{{$comment->content}}</textarea>
                                         </div><br/><br/>
                                 
                                     

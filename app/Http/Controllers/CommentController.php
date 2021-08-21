@@ -49,14 +49,14 @@ class CommentController extends Controller
     {
          
         $validatedData = $request->validate([
-            'body' =>'required|max:60',
+            'content' =>'required|max:300',
             'user_id' =>'required',
             'offer_id' =>'required'
      
         ]); 
         
         $a = new Comment;
-        $a->body = $validatedData['body'];
+        $a->content = $validatedData['content'];
         $a->user_id = $validatedData['user_id'];
         $a->offer_id = $validatedData['offer_id'];
         $a->save();
@@ -102,10 +102,10 @@ class CommentController extends Controller
         }
         //dd($request);
         $validatedData = $request->validate([
-            'body' =>'required|max:60',
+            'content' =>'required|max:60',
      
         ]); 
-        $comment->update($request->only(['body']));
+        $comment->update($request->only(['content']));
      
         
         return redirect()->route('comments.index')

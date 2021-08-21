@@ -55,7 +55,7 @@
 
                                                     <div class="mb-4">
                                                     <label class="form-label">Certificate ID:</label>
-                                                    <textarea class="form-control"  name="certificate_id" id="certificate_id" placeholder="The certificate ID"  value="{{old('certificate_id')}}" rows="1" ></textarea>
+                                                    <textarea class="form-control"  name="certificate_id" id="certificate_id" placeholder="The certificate ID" rows="1" >{{old('certificate_id')}}</textarea>
                                                     </div>
 
                                                     <div class="mb-4">
@@ -80,10 +80,12 @@
                                                     </div>
 
                                                     <div class="mb-4">
-                                                    <label class="form-label">Content:</label>
-                                                    <textarea class="form-control"  name="content" id="content" placeholder="Offer's content"  value="{{old('content')}}" rows="6" ></textarea>
+                                                    <label class="form-label">Certificate ID:</label>
+                                                    <textarea class="form-control"  name="content" id="content" placeholder="The offer's description" rows="5" >{{old('content')}}</textarea>
                                                     </div>
- 
+                                                    
+                                                   
+
                                                     <div class="mb-4">
                                                     <label for="formFile" class="form-label">Upload Image</label>
                                                     <input class="form-control" id="image" type="file" name="image">

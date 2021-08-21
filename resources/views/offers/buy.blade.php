@@ -39,11 +39,19 @@
 
                                                 
                                                     <div class="mb-4">
-                                                    <h2><p class="text-center">The Current Status of the Offer in the Blockchain network</h2>
+                                                    <div class="justified">                                                                  
+                                                            <div><img src="{{asset('/storage/images/'.$offer->image)}}" class="img-fluid img-thumbnail" width="250"></div>
+                                                            </div>
+                                                            <br>
+                                                    <h2><p class="text-center" id="state_title">The Current Status of the Offer in the Blockchain network</h2>
                                                     <div class="justified">
+                                                                                                                                   
+
                                                             <textarea  name="state" id="state" rows="4" cols="40" style="background-color:#ECF0F1;" readonly></textarea>
                                                             </div></div>
-                                                    
+
+                                                           
+                                                                
                                                         
                                                 
                                                             <label for="id" class="col-lg-2 control-label"></label>
@@ -67,7 +75,7 @@
                                                                                 <thead>
                                                                                     <tr>
                                                                                     <th scope="col">Real ID</th>
-                                                                                    <th scope="col">Contract Address</th>
+                                                                                    <th scope="col">The Offer's Address</th>
                                                                                     <th scope="col">Owner Address</th>
                                                                                     <th scope="col">Price (wei)</th>
                                                                                     <th scope="col">Created at</th>
@@ -120,6 +128,9 @@
 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 
     <script type="text/javascript">
+    
+    $("#state").hide();
+    $("#state_title").hide();
 $("#Backbutton").hide();
 $("#pending").hide();
 $("#done").hide();
@@ -186,6 +197,8 @@ async function myDisplay() {
 	var tempOwner;
 	let myPromise = new Promise(function(myResolve, myReject) {
 	  $("#loader").show();
+      $("#state_title").show();
+      $("#state").show();
 	  $("#pending").show();
 	 $("#button").hide();
      document.getElementById("state").value = "Loading ..."

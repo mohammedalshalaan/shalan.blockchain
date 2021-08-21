@@ -29,8 +29,13 @@
                     
                         <a href="{{route('offers.buy',$offer)}}"class="btn btn-success btn-lg active"role="button" aria-pressed="true" >Buy</a>
                         </div>
-
+                        <div class="justified">                                                                  
+                        <div><img src="{{asset('/storage/images/'.$offer->image)}}" class="img-fluid img-thumbnail" width="250"></div>
+                        </div>
+                        <br>
+                        <div><p>{{$offer->content}}</p></div>
                                 <div>
+
                                     <table class="table ">
                                                                         <thead>
                                                                             <tr>
@@ -40,8 +45,8 @@
                                                                         <tbody>
                                                                             <tr>
                                                                             
-                                                                            <th><div class="fleft"><img src="{{asset('/storage/images/'.$offer->image)}}" class="img-fluid img-thumbnail" width="450"></th></div>
-                                                                            <th><p class="text-left">{{$offer->content}}</p></th>
+                                                                            <th></th>
+                                                                            <th></th>
                                                                             </tr>
                                                                         </tbody>
                                                                         </table>     

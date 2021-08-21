@@ -29,7 +29,9 @@
                                 <div class="card-body">
                                 
 								<h2><p class="text-center text-success" id="done" >The transaction has been successfully processed by the local system and the blockchain technology</h2>
-
+                                <div class="justified">                                                                  
+                                <div><img src="{{asset('/storage/images/'.$offer->image)}}" class="img-fluid img-thumbnail" width="250"></div>
+                                </div>
                                                     <table class="table table-striped">
                                                             <thead>
                                                                 <tr>

@@ -106,23 +106,18 @@ class DocumentController extends Controller
                     $table->img_dir = $img_dir;
                     $table->save();
 
-/*
-                    ?> <div class="alert alert-success"> 
-                    <?php echo $file_array[$i]['name'].' - '.$phpFileUploadErrors[$file_array[$i]['error']]; 
-                    ?> </div> <?php
-                    */
+
                 }
             }
         }
     }
 
 
-    //$title = $offer->title;
+   
     $area = Area::findOrFail($offer->area_id);
-    //$offers = $area->offers()->latest()->paginate(5);
+ 
     
-    
-   //dd($offer);
+  
     return view('blockchains.create', ['area'=>$area ,'offer'=>$offer, 'user'=>$user]);
 
 

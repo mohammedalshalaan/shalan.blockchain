@@ -15,9 +15,9 @@ class CreateAreasTable extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
-            $table->string('title',12);
-            $table->string('description',200);
-            $table->text('total_offer_for_sell',100)->nullable();
+            $table->string('title',30);
+            $table->string('description',300);
+            $table->string('total_offer_for_sell',100)->nullable();
             $table->timestamps();
             
             $table->bigInteger('user_id')->unsigned();

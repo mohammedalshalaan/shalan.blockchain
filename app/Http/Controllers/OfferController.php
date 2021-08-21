@@ -62,8 +62,8 @@ class OfferController extends Controller
     {
         //dd($request);
         $validatedData = $request->validate([
-            'title' =>'required|max:20',
-            'content' =>'required|max:500',
+            'title' =>'required|max:100',
+            'content' =>'required|max:1000',
             'user_id' =>'required',
             'area_id' =>'required',
             'value' =>'required',
@@ -75,10 +75,10 @@ class OfferController extends Controller
         ]); 
        
         //owner
-        $string = "0xc046cbe5000000000000000000000000"; //0xd96a094a
-        $string2 = $validatedData['owner'];
-        $string2 = preg_replace('/0x/','', $string2);
-        $string .= $string2;
+        $string = "0xc046cbe5000000000000000000000000"; //0xd96a094a = 34 characters
+        $string2 = $validatedData['owner']; // 40 characters
+        $string2 = preg_replace('/0x/','', $string2); 
+        $string .= $string2; // 74 characters
         
     
        
@@ -95,7 +95,7 @@ class OfferController extends Controller
             $embededValue .= "0";
             
         }
-        $embededValue .= $octValue2;
+        $embededValue .= $octValue2; //64 characters
 
        
        $offer = new Offer;
@@ -124,7 +124,7 @@ class OfferController extends Controller
     } 
        
         $title = $offer->title;
-        //$offers = $area->offers()->latest()->paginate(5);
+        
         $user = Auth::user();
         
         //offer_id
@@ -140,11 +140,11 @@ class OfferController extends Controller
             $embededId .= "0";
             
         }
-        $embededId .= $octId2;
+        $embededId .= $octId2; // 64 characters
 
         //hash_pictute
         $octHash_picture = $offer->hash_picture;
-        //$octHash_picture2 = base_convert($octHash_picture,10,16);
+        
         $octHash_picture1  = strlen($octHash_picture);
 
         $totalZerosOf_hash_pictre = 64 - $octHash_picture1;
@@ -155,7 +155,7 @@ class OfferController extends Controller
             $embeded_hash_picture .= "0";
             
         }
-        $octHash_picture .= $embeded_hash_picture;
+        $octHash_picture .= $embeded_hash_picture; //64 characters
 
         ///
         $hexData = "";
@@ -170,9 +170,7 @@ class OfferController extends Controller
 
        
         return view('documents.create', ['user'=> $user,'offer'=> $offer, 'area'=>$area]);
-        //return redirect()->route('areas.show', ['area'=>$area, 'offers'=>$offers , 'user'=>$user])
-        //->with('success', 'Offer: '.$title. ' was saved');
-        
+       
        
     }
     
@@ -207,7 +205,7 @@ class OfferController extends Controller
         if ($offer->user_id != Auth::id()){
             return abort(403);
         }
-        //dd($request);
+        
         $validatedData = $request->validate([
             'title' =>'required|max:30',
             'content' =>'required|max:500',
@@ -226,8 +224,7 @@ class OfferController extends Controller
         
         $area = Area::findOrFail($offer->area_id);
         return view('documents.edit', ['user'=> $user,'offer'=> $offer, 'area'=>$area]);
-            //return redirect()->route('offers.index')
-            //->with('success', 'Offer was updated');
+           
         
     }
 
@@ -240,22 +237,7 @@ class OfferController extends Controller
     }
     
 
-    public function apiIndex(Request $request)
-    {
-
-     $comments = Comment::all();
-     return $comments;
-
-    }
-
-    public function apiStore(Request $request)
-    {
-        
-        $a = new App\Comment;
-        $a->body = $request['body'];
-        $a->save();
-        return $a;
-     }
+   
 
      public function buy(Offer $offer)
      {

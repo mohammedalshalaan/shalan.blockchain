@@ -13,6 +13,7 @@ class CreateBlockchainsTable extends Migration
      */
     public function up()
     {
+        /*
         Schema::create('blockchains', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
@@ -27,6 +28,7 @@ class CreateBlockchainsTable extends Migration
             $table->foreign('offer_id')->references('id')->on('offers')
             ->onDelete('cascade')->onUpdate('cascade');  
         });
+        */
     }
 
     /**
@@ -34,6 +36,7 @@ class CreateBlockchainsTable extends Migration
      *
      * @return void
      */
+    
     public function down()
     {
         Schema::dropIfExists('blockchains');

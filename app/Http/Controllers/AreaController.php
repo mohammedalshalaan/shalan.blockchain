@@ -18,7 +18,7 @@ class AreaController extends Controller
     {
 
         $areas = Area::latest()->paginate(5);
-//dd($areas);
+
         return view('areas.index', ['areas'=>$areas]);
     }
 
@@ -36,7 +36,7 @@ class AreaController extends Controller
        
         $validatedData = $request->validate([
             'title' =>'required|max:30',
-            'description' =>'required|max:200',
+            'description' =>'required|max:300',
             'user_id' =>'required'
         ]); 
         
@@ -56,22 +56,14 @@ class AreaController extends Controller
     public function show(area $area)
     {
         $offers = $area->offers()->where('state' ,'=', 'The real is available, and it has been saved by the system.')->latest()->paginate(5);
-        //$offers = $area->offers->where('state' ,'=', 'true');
-        //$offers = $area->latest()->paginate(5);
-        /*
-        $offers = DB::table('offers')
-                ->where('state', '=', false)
-               // ->where('age', '>', 35)
-                ->get();
-        
-*/
+      
         $offersForSell = $area->offers()->where('state' ,'=', 'The real is available, and it has been saved by the system.')->count();
         $area->total_offer_for_sell = $offersForSell;
         $area->save();
-        //$offers = DB::table('offers')->select('state', false);
+       
         $user = Auth::user();
        
-        //dd($offers1);
+       
         return view('areas.show', ['area'=>$area, 'offers'=>$offers , 'user'=>$user]);
     }
 
