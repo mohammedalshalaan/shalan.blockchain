@@ -18,7 +18,8 @@
 
 <p><strong> The current Address of the owner in Blockchain:</strong> {{$offer->owner}}</p>
 
-<p class="text-success">  {{$offer->state}}</p>
+<p class="text-success"> The the availability of the offer: {{$offer->state}}</p>
+<p class="text-success"> The validation of the offer: {{$offer->valid}}</p>
 
 
 <p>Thank you</p>

@@ -9,6 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Offer;
 use App\Area;
 use App\Document;
+use App\Property;
 use App\User;
 use App\Mail\thefinalmail;
 use Illuminate\Support\Facades\Mail;
@@ -21,16 +22,13 @@ class OfferController extends Controller
 {
     public function index()
     {
-       
         $offers = Auth::user()->offers()->latest()->paginate(5);
-       
-
+        
         return view('offers.index', ['offers' => $offers]);
         
     }
    
 
-    
     public function show(Offer $offer)
     {
         $comments = $offer->comments()->latest()->paginate(5);
@@ -51,63 +49,72 @@ class OfferController extends Controller
 
     public function create(area $area)
     {
-        
         $user = Auth::user();
         return view('offers.create',['area'=> $area,'user'=>$user,]);
-
     }
 
-    
     public function store (Area $area ,Request $request)
     {
-        //dd($request);
+        $user = Auth::user();
         $validatedData = $request->validate([
             'title' =>'required|max:100',
             'content' =>'required|max:1000',
             'user_id' =>'required',
             'area_id' =>'required',
             'value' =>'required',
-            'owner' =>'required | max:42 | min:42' ,
-            'certificate_type' => 'required',
-            'certificate_id'=>'required',
-           
+            'owner' =>'required | max:42 | min:42',
+            'certificate_id' => 'required | exists:App\Property,certificate_id',
             'image' => 'required|mimes:jpg,jpeg,bmp,png'
         ]); 
-       
+        
+        $properties = Property::all();// call the properties that have been stored by the admin.
+        $ownerValidate = $validatedData['owner'];
+        $certificateValidate = $validatedData['certificate_id'];
+        
+        foreach ($properties as $property){ // this is for matching the Certificate id with the blockchain address that have been stored in the property table.
+           if ($certificateValidate == $property->certificate_id){
+               if ($property->owner != $ownerValidate){
+                $validatedData = $request->validate([
+                    'certificate_id' => 'in',
+                    ]);
+               }
+           }
+        }
+
+        
+
+        
+    
         //owner
-        $string = "0xc046cbe5000000000000000000000000"; //0xd96a094a = 34 characters
+        $string = "0x8c726dc3000000000000000000000000"; //0xd96a094a = 34 characters
         $string2 = $validatedData['owner']; // 40 characters
         $string2 = preg_replace('/0x/','', $string2); 
         $string .= $string2; // 74 characters
         
-    
        
         //value
         $octValue = $validatedData['value'];
         $octValue2 = base_convert($octValue,10,16);
         $hexNumber = strlen($octValue2);
-
         $totalZeros = 64 - $hexNumber;
-       
         $embededValue = "";
+
         for ($x = 0; $x < $totalZeros; $x++){
 
             $embededValue .= "0";
             
         }
-        $embededValue .= $octValue2; //64 characters
+        $embededValue .= $octValue2; //32 bytes for the value or the property price
 
-       
-       $offer = new Offer;
-       $offer->title = $validatedData['title'];
-       $offer->area_id = $validatedData['area_id'];
-       $offer->content = $validatedData['content'];
-       $offer->user_id = $validatedData['user_id'];
-       $offer->value = $validatedData['value'];
-       $offer->certificate_type = $validatedData['certificate_type'];
-       $offer->certificate_id = $validatedData['certificate_id'];
-       $offer->owner = $validatedData['owner'];
-       $offer->save();
+        $offer = new Offer;
+        $offer->title = $validatedData['title'];
+        $offer->area_id = $validatedData['area_id'];
+        $offer->content = $validatedData['content'];
+        $offer->user_id = $validatedData['user_id'];
+        $offer->value = $validatedData['value'];
+        $offer->certificate_id = $validatedData['certificate_id'];
+        $offer->owner = $validatedData['owner'];
+        $offer->save();
 
 
        if ($request->hasFile('image')){
@@ -116,67 +123,74 @@ class OfferController extends Controller
         $offer->update(['image'=>$filename]);
         $offer->save();
 
-    $test_file_read1 = ('./storage/images/'.$offer->image);
-    $test_file_read = file_get_contents($test_file_read1);
-    $test_file_hash = hash_file("md5", $test_file_read1, FALSE);
-    $offer->hash_picture =  $test_file_hash;
-    $offer->save();
-    } 
+        $test_file_read1 = ('./storage/images/'.$offer->image);
+        $test_file_read = file_get_contents($test_file_read1);
+        $test_file_hash = hash_file("md5", $test_file_read1, FALSE);
+        $offer->hash_picture =  $test_file_hash;
+        $offer->save();
+        } 
        
-        $title = $offer->title;
-        
-        $user = Auth::user();
-        
         //offer_id
         $octId = $offer->id;
         $octId2 = base_convert($octId,10,16);
         $hexIdNumber = strlen($octId2);
-
         $totalZerosOfId = 64 - $hexIdNumber;
-       
         $embededId = "";
+        
         for ($x = 0; $x < $totalZerosOfId; $x++){
 
             $embededId .= "0";
             
         }
-        $embededId .= $octId2; // 64 characters
+        
+        $embededId .= $octId2; // 32 bytes for the offer id.
 
+         //certificate_id
+         $octCertificate_id = $offer->certificate_id;
+         $octCertificate_id2 = base_convert($octCertificate_id,10,16);
+         $hexIdNumber = strlen($octCertificate_id2);
+ 
+         $totalZerosOfId = 64 - $hexIdNumber;
+        
+         $embededCertificate_id = "";
+         for ($x = 0; $x < $totalZerosOfId; $x++){
+ 
+             $embededCertificate_id .= "0";
+             
+         }
+         $embededCertificate_id .= $octCertificate_id2; // 32 bytes for the certificate id
+        
         //hash_pictute
         $octHash_picture = $offer->hash_picture;
-        
         $octHash_picture1  = strlen($octHash_picture);
-
         $totalZerosOf_hash_pictre = 64 - $octHash_picture1;
-       
         $embeded_hash_picture = "";
+
         for ($x = 0; $x < $totalZerosOf_hash_pictre; $x++){
 
             $embeded_hash_picture .= "0";
             
         }
-        $octHash_picture .= $embeded_hash_picture; //64 characters
-
+        
+        $octHash_picture .= $embeded_hash_picture; //32 bytes for the picture,
         ///
         $hexData = "";
         $hexData .= $string;
-        $hexData .= $embededValue;
-        $hexData .= $embededId;
-        $hexData .= $octHash_picture;
-        $offer->hex_data = $hexData;
+        $hexData .= $embededValue;// value encoded
+        $hexData .= $embededId;// offer id encoded
+        $hexData .= $octHash_picture; //hash value of the image
+        $hexData .= $embededCertificate_id; // certificate id encoded
+        $offer->hex_data = $hexData; // the obove data is encluded in this variable.
         $offer->hex_id = $embededId;
         $offer->save();
 
-
-       
+        
         return view('documents.create', ['user'=> $user,'offer'=> $offer, 'area'=>$area]);
-       
-       
+              
     }
     
-    
-    
-    public function destroy($id)
+
+    public function destroy($id) // this function will not be used owing to the transaction in the ethereum blockchain is not able to be deleted
     {
         
         $offer = Offer::findOrFail($id);
@@ -191,7 +205,7 @@ class OfferController extends Controller
     {
       
         if ($offer->user_id != Auth::id()){
-            return abort(404);
+            return abort(404); // this is for preventing the unauthorised users.
         }
         return view('offers.edit')->with([
             'offer'=>$offer,
@@ -203,7 +217,7 @@ class OfferController extends Controller
     public function update(Request $request, Offer $offer){
 
         if ($offer->user_id != Auth::id()){
-            return abort(403);
+            return abort(403); // this is for preventing the unauthorised users.
         }
         
         $validatedData = $request->validate([
@@ -237,8 +251,6 @@ class OfferController extends Controller
     }
     
 
-   
-
      public function buy(Offer $offer)
      {
         $user = Auth::user();
@@ -250,45 +262,69 @@ class OfferController extends Controller
 
      public function confirm(Offer $offer, Request $request){
 
-        //dd($request);
         $user = Auth::user();
         $olduser = User::findOrFail($offer->user_id);
    
         $validatedData = $request->validate([
            
-            'SmartContractAddress' =>'required',
+            'hash' =>'required',
             'state' =>'required',
-            'theOwner' =>'required'
-        ]); 
+            'valid' =>'required',
+            'the_new_owner' =>'required',
+            'user_id' =>'required'
+        ]);
         
         //dd($request);
     
         $offer = Offer::findOrFail($offer->id);
        
       
-        $string = $validatedData['SmartContractAddress'];
+        $string = $validatedData['hash'];
         $string = preg_replace('/[0x]{2}/','', $string);
     
-       
-       $offer->hash = $string;
+        /////
+        $properties = Property::all();// call the properties that have been stored by the admin.
+        
+        $ownerValidate = $validatedData['the_new_owner'];
+        $certificateValidate = $offer->certificate_id;;
+        
+        foreach ($properties as $property){ // this is for updating the property table.
+           if ($certificateValidate == $property->certificate_id){
+               
+            $property->owner = $ownerValidate;
+            $property->save();
+                
+               }
+           }
+        ////////
 
-       if ($validatedData['state'] == "The real has been saved by the blockchain technology."){
-        $offer->state = "The real is available, and it has been saved by the system.";
-       }else{
-           $offer->state = $validatedData['state'];
-       }
-       
-       $offer->owner = $validatedData['theOwner'];
+        ////////
+        $offers = Offer::all();
+        $offer_certificate_id = $offer->certificate_id;
+        foreach ($offers as $offer){ 
+            if ($offer_certificate_id == $offer->certificate_id){
+                
+                $offer->valid = 'false';
+                $offer->save();
+                
+            }
+            }
+        /////////
+
+       $offer->hash = $string;
+       $offer->user_id = $validatedData['user_id'];
+       $offer->state = $validatedData['state'];
+       $offer->valid = $validatedData['valid'];
+       $offer->owner = $validatedData['the_new_owner'];
        $offer->save();
     
-       Mail::to($user->email)->send(new \App\Mail\RSBlockchain($offer));
-       Mail::to($olduser->email)->send(new \App\Mail\RSBlockchain($offer));
+       //it will be activated later:
+       //Mail::to($user->email)->send(new \App\Mail\RSBlockchain($offer)); // informs the buyer
+       //Mail::to($olduser->email)->send(new \App\Mail\RSBlockchain($offer)); // informs the seller
        
         $title = $offer->title;
         $area = Area::findOrFail($offer->area_id);
         $offers = $area->offers()->latest()->paginate(5);
-       
-        
 
         $user = Auth::user();
         return view('offers.confirm', ['area'=>$area, 'offers'=>$offers , 'user'=>$user, 'offer'=>$offer])
@@ -296,14 +332,19 @@ class OfferController extends Controller
  
     }
 
-    public function verify(){
-        
-        
-
+    public function showMyOffer(Offer $offer)
+    {
+        $comments = $offer->comments()->latest()->paginate(5);
        
-        return view('offers.verify'); 
-
+        
+        return view('offers.showMyOffer', ['offer'=>$offer,'comments'=>$comments]);
     }
+    public function cancel(Offer $offer)
+    {
+        $user = Auth::user();
+        return view('offers.cancel', ['offer'=>$offer ,'user'=>$user]);
+    }
+
 
 
 }

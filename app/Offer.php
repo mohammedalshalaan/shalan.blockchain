@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Offer extends Model
 {
     protected $fillable = [
-        'title','content','image','hash','value','owner','hex_data','hex_id','hash_picture','certificate_type','certificate_id','state'
+        'title','content','image','hash','value','owner','hex_data','hex_id','hash_picture','certificate_id','state','valid'
     ];
     public function user(){
 

@@ -35,30 +35,32 @@ class AreaController extends Controller
     {
        
         $validatedData = $request->validate([
-            'title' =>'required|max:30',
+            'name' =>'required|max:30',
             'description' =>'required|max:300',
             'user_id' =>'required'
         ]); 
         
         $a = new Area;
-        $a->title = $validatedData['title'];
+        $a->name = $validatedData['name'];
         $a->description = $validatedData['description'];
         $a->user_id = $validatedData['user_id'];
         $a->save();
 
        
-        $title = $a->title;
+        $name = $a->name;
 
-        return redirect()->route('areas.index')->with('success', 'Area: '.$title. ' was saved');
+        return redirect()->route('areas.index')->with('success', 'City: '.$name. ' was saved');
       
     }
 
     public function show(area $area)
     {
-        $offers = $area->offers()->where('state' ,'=', 'The real is available, and it has been saved by the system.')->latest()->paginate(5);
+        $offers1 = $area->offers()->where('state' ,'=', 'true');
+        $offers = $offers1->where('valid' ,'=', 'true')->latest()->paginate(5);
       
-        $offersForSell = $area->offers()->where('state' ,'=', 'The real is available, and it has been saved by the system.')->count();
-        $area->total_offer_for_sell = $offersForSell;
+        $offers_for_Sell = $area->offers()->where('state' ,'=', 'true');
+        $offers_valid_and_for_sell = $offers_for_Sell->where('valid' ,'=', 'true')->count();
+        $area->total_offer_for_sell = $offers_valid_and_for_sell;
         $area->save();
        
         $user = Auth::user();

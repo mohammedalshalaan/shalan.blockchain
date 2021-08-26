@@ -7,29 +7,29 @@
     <div class="row justify-content-center">
         <div class="col-md-11">
             <div class="card">
-                <div class="p-3 mb-2 bg-primary text-white"><h2><p class="text-center">The Cities in Country</h2></div>
+                <div class="p-3 mb-2 bg-primary text-white"><h2><p class="text-center">The Properties</h2></div>
                     <div class="card-body">
                         <table class="table">
                                 <thead> 
                                         <tr >
                                         <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Number Of Offers</th>
+                                        <th scope="col">Owner</th>
+                                        <th scope="col">Certificate Id</th>
                                         <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
                                 <tbody>
                                   
-                                            @foreach($areas as $area)
+                                            @foreach($properties as $property)
                                                 <tr>          
-                                                        <th scope="row">{{$area->id}}</th>
-                                                        <td>{{$area->name}}</td>
-                                                        <td>{{$area->total_offer_for_sell}}</td>
+                                                        <th scope="row">{{$property->id}}</th>
+                                                        <td>{{$property->owner}}</td>
+                                                        <td>{{$property->certificate_id}}</td>
                                                         <td>
-                                                        <a href="{{route('areas.show',$area)}}"><button type="button" class="btn btn-primary float-left">show</button></a>                                              
+                                                        
                                                         
                                                         @can('delete-users') 
-                                                    <form action = "{{route('areas.destroy', $area)}}" method="POST" class="float-left"></a>
+                                                    <form action = "{{route('properties.destroy', $property)}}" method="POST" class="float-left"></a>
                                                         @csrf
                                                         {{ method_field('DELETE')}}
                                                         <button type="submit" class="btn btn-danger">Delete</button>@endcan</td></a>
@@ -43,7 +43,7 @@
                             </table>
                            
                                             <div> @can('delete-users') 
-                                                <a href="{{route('areas.create')}}"class="btn btn-primary">Create a New City</a>
+                                                <a href="{{route('properties.create')}}"class="btn btn-primary">Create a New Property</a>
                                                 @endcan
                                             </div>  
                         <div>
@@ -51,7 +51,7 @@
                 </div>
                 
             </div>
-            <div class="parent">{{$areas->links()}} </div>
+            <div class="parent">{{$properties->links()}} </div>
         </div>
     </div>
 </div>

@@ -12,6 +12,7 @@
     </div>
 @endif
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
 <body>
     <div class="container">
@@ -20,37 +21,33 @@
                 <div class="card">
                     <div class="p-3 mb-3 bg-primary text-white"><h2><p class="text-center">Offer's title : {{$offer->title}}</h2></div>
                         <div class="card-body">
-
+                        <input name="state" id="state"  value="{{$offer->state}}" type="hidden" checked>
+                        <input name="valid" id="valid"  value="{{$offer->valid}}" type="hidden" checked>
+                        
                         
                         <div class="mb-4">
-                            <a href="{{route('areas.show',$offer->area)}}"class="btn-lg active btn btn-primary">Back to Offers Page</a> 
+                            <a href="{{route('offers.index')}}"class="btn-lg active btn btn-primary"  >Back to My Offers</a> 
                         
+                           
+                            
+                          
 
-                    
-                        <a href="{{route('offers.buy',$offer)}}"class="btn btn-success btn-lg active"role="button" aria-pressed="true" >Buy</a>
+                                <a href="{{route('offers.buy',$offer)}}" class="btn btn-success btn-lg active"role="button" aria-pressed="true"id="buy"  >Buy</a>
+                                <script>
+                                if (document.getElementById("state").value == "false" || document.getElementById("valid").value == "false" ) {
+                                    $("#buy").hide();
+                                }
+                               
+                                </script>
                         </div>
                         <div class="justified">                                                                  
                         <div><img src="{{asset('/storage/images/'.$offer->image)}}" class="img-fluid img-thumbnail" width="250"></div>
                         </div>
                         <br>
-                        <div><h4>{{$offer->content}}<h4></div>
+                        <div><p>{{$offer->content}}</p></div>
                                 <div>
 
-                                    <table class="table ">
-                                                                        <thead>
-                                                                            <tr>
-                                                                      
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                            
-                                                                            <th></th>
-                                                                            <th></th>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                        </table>     
-                            </div>
+                                   
                             
                           
 
@@ -104,7 +101,7 @@
                                     @foreach($comments as $comment)
                                             <tr>          
                                                     <th scope="row">{{$comment->id}}</th>
-                                                    <td>{{$comment->content}}</td>
+                                                    <td>{{$comment->body}}</td>
                                                     <td>{{$comment->user->name}}</td>
                                                     <td>{{$comment->created_at}}</td>
                                                     <td>
@@ -124,7 +121,7 @@
                                     <button type="submit" class="btn btn-primary">Create Comment</button>   
                                     </form> 
                                     <br>
-                            <a href="{{route('areas.show',$offer->area)}}"class="btn btn-primary">Back to Offers Page</a>  </div>
+                            <a href="{{route('offers.index')}}"class="btn btn-primary">Back to My Offers</a>  </div>
                         </div>
                     </div>
                     <div class="parent">{{$comments->links()}} </div> 

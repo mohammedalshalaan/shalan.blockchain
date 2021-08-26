@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\Offer;
+use App\Area;
+use App\Property;
 use Auth;
+
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -61,4 +65,5 @@ class UserController extends Controller
        
         return view('admin.users.profile', ['user'=>$user]);   
      }
+
 }

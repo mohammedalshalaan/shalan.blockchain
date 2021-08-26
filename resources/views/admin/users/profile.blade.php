@@ -14,7 +14,7 @@
                                                       <th scope="col">Blockchain Account Address</th>
                                                       <th scope="col">Name:</th>
                                                       <th scope="col">Email:</th>
-                                                      <th scope="col">Action:</th>
+                                                     
                                                   </tr>
                                                 </thead>
                                           <tbody>
@@ -25,7 +25,6 @@
                                                       <td>{{$user->email}}</td>
                                                   <td>
                                                  
-                                                  <a href="{{route('admin.users.edit',$user->id)}}"><button type="button" class="btn btn-primary float-left">Edit</button></a>
                                                  
              
                                                              

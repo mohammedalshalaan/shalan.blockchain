@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Area extends Model
 {
     protected $fillable = [
-        'title','description','total_offer_for_sell'
+        'name','description','total_offer_for_sell'
     ];
     public function user(){
 

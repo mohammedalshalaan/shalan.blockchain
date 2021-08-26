@@ -9,7 +9,7 @@ use Auth;
 //Users - Admin
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
-    Route::resource('/users', 'UsersController',['except'=>['show','create','store','profile']]);
+    Route::resource('/users', 'UsersController',['except'=>['show','create','store']]);
 });
  
 //Users
@@ -38,11 +38,13 @@ Route::group(['middleware'=>'auth', 'prefix'=> 'areas'], function(){
 
 Route::group(['middleware'=>'auth', 'prefix'=> 'offers'], function(){
 
-    Route::get('/verify', 'OfferController@verify')->name('offers.verify');
+    Route::get('/cancel/{offer}', 'OfferController@cancel')->name('offers.cancel');
     
     Route::post('/new/{area}', 'OfferController@addblog')->name('offers.addblog');
 
     Route::get('/show/{offer}', 'OfferController@show')->name('offers.show');
+
+    Route::get('/showMyOffer/{offer}', 'OfferController@showMyOffer')->name('offers.showMyOffer');
     
     Route::get('/edit/{offer}', 'OfferController@edit')->name('offers.edit');
 
@@ -99,6 +101,21 @@ Route::group(['middleware'=>'auth', 'prefix'=> 'documents'], function(){
 
    // Route::get('/show/{comment}', 'CommentController@show')->name('comments.show');
     
+});
+
+// Areas
+
+Route::group(['middleware'=>'auth', 'prefix'=> 'properties'], function(){
+
+    Route::get('/show/{property}', 'PropertyController@show')->name('properties.show');
+    
+    Route::get('/create', 'PropertyController@create')->name('properties.create');
+    
+    Route::get('/list', 'PropertyController@index')->name('properties.index');
+
+    Route::delete('/delete/{id}', 'PropertyController@destroy')->name('properties.destroy');
+
+    Route::post('/store', 'PropertyController@store')->name('properties.store');
 });
 
 //blockchain

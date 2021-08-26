@@ -45,18 +45,16 @@
                                                     </div>
 
                                                     <div class="mb-4">
-                                                    <label class="form-label">Select the current type ID of the Real Estate certificate:</label>
-                                                    <br>
-                                                    <select class="form-select" aria-label="Default select example" name="certificate_type" id="certificate_type">
-                                                    <option selected>Hash Address</option>
-                                                    <option value="1">ID as a Number</option>
-                                                    </select>
-                                                    </div>
+                                                                <label class="form-label">The Certificate ID:</label>
+                                                                <input id="certificate_id" class="form-control @error('certificate_id') is-invalid @enderror" name="certificate_id" required autocomplete="certificate_id" autofocus>
 
-                                                    <div class="mb-4">
-                                                    <label class="form-label">Certificate ID:</label>
-                                                    <textarea class="form-control"  name="certificate_id" id="certificate_id" placeholder="The certificate ID" rows="1" >{{old('certificate_id')}}</textarea>
-                                                    </div>
+                                                                @error('certificate_id')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
+                                                           
+                                                        </div>
 
                                                     <div class="mb-4">
                                                     <label class="form-label">Owner Name:</label>

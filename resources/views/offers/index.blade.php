@@ -14,10 +14,12 @@
                                             <tr>
                                                 <th scope="col">ID:</th>
                                                 <th scope="col">Title:</th>
-                                                <th scope="col">Area ID:</th>
+                                                <th scope="col">Certificate ID:</th>
+                                                <th scope="col">Valid:</th>
+                                                <th scope="col">Availability:</th>
                                                 <th scope="col">Total of Comments</th>
                                                 <th scope="col">Value</th>
-                                                <th scope="col">State</th>
+                                               
 
                                                
                                                 <th scope="col">Actions:</th>
@@ -33,23 +35,25 @@
  
                                                         <td>{{$offer->id}}</td>
                                                             <td>{{$offer->title}}</td>
-                                                            <td>{{$offer->area->title}}</td>
+                                                            <td>{{$offer->certificate_id}}</td>
+                                                            <td>{{$offer->valid}}</td>
+                                                            <td>{{$offer->state}}</td>
                                                             <td>{{$offer->comments->count()}}</td>
                                                             <td>{{$offer->value}}</td>
-                                                            <td>{{$offer->state}}</td>
+                                                            
                                                             
                                                             <td>
                                                         <div>
-                                                            <a href="{{route('offers.edit',$offer)}}"><button type="button" class="btn btn-primary float-left">Edit</button></a>
+                                                            <a href="{{route('offers.showMyOffer',$offer)}}"><button type="button" class="btn btn-primary float-left">Show</button></a>
                                                         
-                                                            <form action = "{{route('offers.destroy', $offer)}}" method="POST"class=" float-left" ></a>
-                                                            @csrf
+                                                            <form action = "{{route('offers.cancel', $offer)}}" class=" float-left" ></a>
+                                                            
                                                        
 
                                                        
                                                                 {{ method_field('DELETE')}}
                                                         
-                                                                <button type="submit" class="btn btn-danger">Delete</button></td></a>
+                                                                <button type="submit" class="btn btn-danger">Cancel</button></td></a>
                                                             </div>
                                                             </form>
                                                         </tr>
@@ -60,10 +64,10 @@
                                             
                                 </table>
                             <div>
-                            
+                        <div class="parent">{{$offers->links()}}</div>
                     </div>
                 </div>
-                <div class="parent">{{$offers->links()}} </div>
+                
             </div>
         </div>
     </div>

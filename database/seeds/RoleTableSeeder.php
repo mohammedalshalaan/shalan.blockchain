@@ -22,8 +22,8 @@ class RoleTableSeeder extends Seeder
        // $roles = factory(App\Role::class, 3)->create();
        App\Role::truncate();
        App\Role::create(['name'=>'admin']);
-       App\Role::create(['name'=>'author']);
-       App\Role::create(['name'=>'visitor']);
+       //App\Role::create(['name'=>'author']);
+       //App\Role::create(['name'=>'visitor']);
        
 
 
