@@ -28,7 +28,7 @@
 													<h3><p class="text-center text-primary" id="pending">Please wait, the transaction is pending now, this almost takes 120 seconds.</h3>
 													<h2><p class="text-center text-success" id="done" >The transaction has been successfully processed by the blockchain, please press Confirm button for confirming</h2>
 													<h2><p class="text-center text-danger" id="worning_try_again" >Something was wrong, please, try again</h2>
-													<h2><p class="text-center text-danger" id="worning" >You must use the blockcahin account address, which is saved in the system</h2>
+													<h2><p class="text-center text-danger" id="worning" >You must use the blockcahin account address, which is saved in the system, or check your wallet</h2>
 												</div>
 
 									<form action="{{route('offers.confirm',$offer)}}" method="post" enctype="multipart/form-data">
