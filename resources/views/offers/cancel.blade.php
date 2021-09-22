@@ -29,7 +29,7 @@
                                         @csrf
                                         <div class="card-body">
                                                     <div>
-                                                            <h3><p class="text-center text-primary" id="pending">Please wait, the transaction is pending now, this almost takes 40 seconds.</h3>
+                                                            <h3><p class="text-center text-primary" id="pending">Please wait, the transaction is pending now, this almost takes 120 seconds.</h3>
                                                             <h2><p class="text-center text-success" id="done" >The transaction has been successfully processed by the blockchain network, please press Confirm.</h2>
                                                             <h2><p class="text-center text-danger" id="worning" >You must use the blockcahin account address, which is saved in the system.</h2>
                                                             <h2><p class="text-center text-danger" id="worning_try_again" >Something was wrong, please, try again.</h2>
@@ -48,16 +48,9 @@
                                                             <textarea  name="stateShow" id="stateShow" rows="4" cols="40" style="background-color:#ECF0F1;" readonly></textarea>
                                                         </div></div>
 
-                                                           
-                                                            <input name="user_id" id="user_id" value="{{$user->id}}"type="hidden"checked >
                                                             
                                                             <input name="id" id="id" value="{{$offer->id}}" type="hidden"checked>
-                                            
-                                                            <input name="hash" id="hash" value="{{$offer->hash}}" type="hidden"checked>
-                                                            
-                                                            <input name="value" id="value"  value="{{$offer->value}}" type="hidden"checked>
-
-                                                            <input name="hex_data" id="hex_data" value="{{$offer->hex_data}}" type="hidden"checked>
+                         
 
                                                             <input name="hex_id" id="hex_id" value="{{$offer->hex_id}}" type="hidden"checked>
                                                         
@@ -68,6 +61,8 @@
                                                             <input  name="hash" id="hash" value="{{$offer->hash}}" type="hidden"checked>
 
                                                             <input  name="valid" id="valid" type="hidden">
+
+                                                            <input  name="tx" id="tx"type="hidden" >
 
                                                                     <div>
                                                                         <table class="table table-striped">
@@ -92,9 +87,7 @@
                                                                                 </table>
                                                                     </div>
 
-                                                <div class="mb-4">
-                                                <input  name="the_new_owner" id="the_new_owner" type="hidden" rows="1" cols="63" readonly>
-                                                </div>
+                                                
 
                                                 
                                                 <div class="mb-2">
@@ -132,11 +125,13 @@ var web3 = new Web3(Web3.givenProvider || "https://ropsten.infura.io/v3/d43aad72
     var abi =[{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"owner","type":"address"},{"indexed":false,"internalType":"bytes16","name":"photo","type":"bytes16"},{"indexed":true,"internalType":"uint256","name":"id","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"},{"indexed":false,"internalType":"address","name":"contractAddress","type":"address"},{"indexed":false,"internalType":"uint256","name":"certificate","type":"uint256"},{"indexed":false,"internalType":"bool","name":"valid","type":"bool"},{"indexed":false,"internalType":"bool","name":"availability","type":"bool"}],"name":"Event","type":"event"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"}],"name":"buy","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"}],"name":"cancelOffer","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"}],"name":"getAnyCertificate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"}],"name":"getAnyContractAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"}],"name":"getAvailablilityForAnyContract","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"}],"name":"getOwnerForAnyContract","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"}],"name":"getTheHashValueForAnyContract","outputs":[{"internalType":"bytes16","name":"","type":"bytes16"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"}],"name":"getValidForAnyContract","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"offerHash","type":"address"}],"name":"getValidForAnyContractByaddress","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_id","type":"uint256"}],"name":"getValueForAnyContract","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"newReals","outputs":[{"internalType":"contract NewReal","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"realListFromAddressToArrayId","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"realListFromIdToTheAvailability","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"realListFromIdToTheCertificate","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"realListFromIdToTheMd5_hash_picture","outputs":[{"internalType":"bytes16","name":"","type":"bytes16"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"realListFromIdToTheValidation","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"realListFromIdToTheValue","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"realListFromIdToTheWoner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"realListFromIdToaddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address payable","name":"_owner_1","type":"address"},{"internalType":"uint256","name":"_value_1","type":"uint256"},{"internalType":"uint256","name":"_id","type":"uint256"},{"internalType":"bytes16","name":"_md5_hash_picture","type":"bytes16"},{"internalType":"uint256","name":"_certificate","type":"uint256"}],"name":"setReal","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"theContractOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}];
 	var Address = '0xDefc55B32b87B3B0982348e28C3279d6729Fc09b';
 
+    var tx;
+    const hex_id = $("#hex_id").val();
 
 if (typeof web3 !== 'undefined') {
 
-    const hash = $("#hex_id").val();
-    const full_name_contractAddress = '0x'+hash;
+   
+    
 
 web3.eth.getAccounts(function(err,accounts){
      
@@ -153,20 +148,22 @@ $("#button").click(function(){
       {
         from: myAccountAddress,
         to: '0xDefc55B32b87B3B0982348e28C3279d6729Fc09b',
-        data: '0xef706adf' + hash,
+        data: '0xef706adf' + hex_id,
       },
     ],
   })
   
-  .then((txHash) => console.log(txHash))
+  .then((txHash) => tx = txHash)
   .catch((error) => console.error);
   myDisplay();
 
-});   
+});
+
+
 
 async function myDisplay() {
 	
-    var tempOwner;
+    var tempOwner = document.getElementById("owner").value;
 	
     let myPromise = new Promise(function(myResolve, myReject) {
 	    
@@ -180,16 +177,13 @@ async function myDisplay() {
 	    
         setTimeout(function() { myResolve(
 
-        myContract.methods.getOwnerForAnyContract(document.getElementById("id").value).call({ from: myAccountAddress}, function( error, res){
-			document.getElementById("the_new_owner").value = res;
-            tempOwner = res;
-			console.log(res)}),
+       
+		myContract.methods.getValidForAnyContract(document.getElementById("id").value).call({ from: myAccountAddress}, function( error, res){
+			if (res == false){
 
-		myContract.methods.getValidForAnyContract(full_name_contractAddress).call({ from: myAccountAddress}, function( error, res){
-			if (res == false && tempOwner == myAccountAddress){
-
-				document.getElementById("stateShow").value = "The offer has already been canceled by "+ myAccountAddress +", and the offer has been updated by the blockchain technology.";
+				document.getElementById("stateShow").value = "The offer has already been canceled and the offer has been updated by the blockchain technology.";
 				document.getElementById("valid").value =res;
+				document.getElementById("tx").value = tx;
                 
 				$("#done").show();
 				$("#Backbutton").show();
@@ -208,7 +202,7 @@ async function myDisplay() {
         $("#pending").hide();
 
         })
-		); }, 45000) // the time that the transaction needs.
+		); }, 120000) // the time that the transaction needs.
 	});
   }
 } else {

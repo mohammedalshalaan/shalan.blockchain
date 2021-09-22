@@ -54,37 +54,5 @@ class HomeController extends Controller
         //
         
     }
-  
-
-    public function setting()
-    {
-   
-        return view('personal.setting');
-
-    }
-
-
-    public function analysis()
-    {
-
-       $your_offers = Auth::User()->offers();
-       $your_comments = Auth::User()->comments();
-
-       $offers = Auth::User()->offers()->paginate(5);
-
-       $offers_chart = Offer::all();
-       $comments_chart = Comment::all();
-    
-
-       return view('personal.analysis', [
-           'your_offers'=>$your_offers ,
-           'offers'=>$offers,
-           'your_comments'=> $your_comments,
-           'offers_chart'=> $offers_chart,
-           'comments_chart'=> $comments_chart]);
-    }
-
-   
-
 
 }

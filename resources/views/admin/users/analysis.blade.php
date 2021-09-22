@@ -14,8 +14,8 @@
 
       function drawMultSeries() {
             var data = google.visualization.arrayToDataTable([
-              ['Posts', 'Your Posts and Comments', 'Total Posts and Comments'],
-              ['Posts', {{$your_offers->count()}}, {{$offers_chart->count()}}],
+              ['Offers', 'Your Offers and Comments', 'Total Offers and Comments'],
+              ['Offers', {{$your_offers->count()}}, {{$offers_chart->count()}}],
               ['Comments', {{$your_comments->count()}}, {{$comments_chart->count()}}],
             ]);
 
@@ -23,7 +23,7 @@
               title: 'Demonstrate Your Interactions',
               chartArea: {width: '50%'},
               hAxis: {
-                title: 'Total Posts And Comments',
+                title: 'Total Offers And Comments',
                 minValue: 0
               },
               vAxis: {
@@ -73,7 +73,7 @@
                                                                     @endforeach
                                                             </tbody>      
                                                     </table>
-                                                    <a href="{{route('areas.index')}}"class="btn btn-primary">Back to Cities Page</a>
+                                                    <a href="{{route('areas.index')}}"class="btn btn-primary">Back to Areas Page</a>
                                                   
                                                 </div>
                                     </div>

@@ -18,7 +18,7 @@
                     <div class="p-3 mb-2 bg-primary text-white"><h2><p class="text-center">Creare New Comment</h2></div>
                         <div class="card-body">
                     
-                            <form action="{{route('comments.store',$offer)}}" method="post" enctype="multipart/form-data" >
+                            <form action="{{route('comments.store')}}" method="post" enctype="multipart/form-data" >
                             @csrf
                                         
                                         <div class="d-inline p-2 bg-success text-white">The offer title : {{$offer->title}}</div><br/><br/>
@@ -29,9 +29,9 @@
                                         <textarea class="form-control"  name="content" id="content" placeholder="Comment"  value="{{old('content')}}" rows="3" ></textarea>
                                         </div><br/><br/>
                                     
-                                    
-                                    <input name = "user_id" value= "{{ $user->id }} " type="hidden"checked></input>
                                     <input name = "offer_id" value= "{{ $offer->id }} " type="hidden"checked></input>
+                                   
+                                    
                                     
                                     <a href="{{route('offers.show',$offer)}}"class="float-left">
                                     <button type="button" class="btn btn-secondary" style="margin-left:0px;">Cancel</button>

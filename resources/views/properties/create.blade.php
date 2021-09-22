@@ -35,7 +35,7 @@
                                                     <br/> 
                                                     <a href="{{route('properties.index')}}"class="float-left">
                                                             <button type="button" class="btn btn-secondary" style="margin-left:0px;">Cancel</button> 
-                                                    <input name = "user_id" value= "{{ $user->id }} " type="hidden"checked></input>
+                                                   
                                                     <button type="submit" class="btn btn-primary"style="margin-left:0px;">Submit</button>       
                                             </form>
                                     </div>  

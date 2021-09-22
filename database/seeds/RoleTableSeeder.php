@@ -18,15 +18,8 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
 
-       
-       // $roles = factory(App\Role::class, 3)->create();
        App\Role::truncate();
        App\Role::create(['name'=>'admin']);
-       //App\Role::create(['name'=>'author']);
-       //App\Role::create(['name'=>'visitor']);
-       
-
-
 
     }
 }

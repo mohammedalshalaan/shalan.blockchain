@@ -36,7 +36,7 @@
                                                             <thead>
                                                                 <tr>
                                                                 <th scope="col">Real ID</th>
-                                                                <th scope="col">Contract Address</th>
+                                                                <th scope="col">The Offer's Address</th>
                                                                 <th scope="col">Owner Address</th>
                                                                 <th scope="col">Price (wei)</th>
                                                                 <th scope="col">Created at</th>
@@ -53,7 +53,24 @@
                                                             
                                                             </tbody>
                                                             </table>
+                                                            <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                <th scope="col">Transaction Hash</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                <td>{{$offer->tx}}</td>
+                                                                </tr>
+                                                            
+                                                            </tbody>
+                                                            </table>
 															<a href="{{route('areas.show',$offer->area)}}"class="btn-lg active btn btn-primary">Back to Offers Page</a> 
+
+                                                
+                                                
+                                                   
 
                                                 </div>
                         </div>

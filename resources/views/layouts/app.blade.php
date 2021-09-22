@@ -95,7 +95,7 @@ div.justified {
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                PT: Applying Blockchain Technology to Real Estate Transactions. Supervisor: Dr. Anton Setzer. Student: Mohammed Alshalan
+                PT: Applying Blockchain Technology to the Buy and Sale Transactions. Supervisor: Dr. Anton Setzer. Student: Mohammed Alshalan
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -126,10 +126,10 @@ div.justified {
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('areas.index')}}"> Home Page - The Cities</a>
+                                <a class="dropdown-item" href="{{ route('areas.index')}}"> Home Page - The Areas</a>
                                 <a class="dropdown-item" href="{{ route('offers.index')}}"> Your Offers</a>
                                 <a class="dropdown-item" href="{{ route('comments.index')}}"> Your Comments</a>
-                                <a class="dropdown-item" href="{{ route('personal.analysis')}}">Analysis</a>
+                                <a class="dropdown-item" href="{{ route('users.analysis')}}">Analysis</a>
                                 <a class="dropdown-item" href="{{ route('users.profile')}}">User Profile</a>
                            
                                 

@@ -22,7 +22,7 @@
                             <p class="lh-lg"><h5><b>{{$comment->content}}</b><h5></p>
                             </div>
                         
-                            <a href="{{route('offers.show',$comment->offer)}}"class="btn btn-primary" style="margin-left:0px;">Back to Offer Page</a>
+                            <a href="{{route('offers.show', $offer)}}"class="btn btn-primary" style="margin-left:0px;">Back to the Offer Page</a>
                             
                            
                            

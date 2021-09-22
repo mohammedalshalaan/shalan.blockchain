@@ -13,7 +13,6 @@
 @endif
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-
 <body>
     <div class="container">
         <div class="row justify-content-center">
@@ -24,15 +23,12 @@
                         <input name="state" id="state"  value="{{$offer->state}}" type="hidden" checked>
                         <input name="valid" id="valid"  value="{{$offer->valid}}" type="hidden" checked>
                         
-                        
                         <div class="mb-4">
                             <a href="{{route('offers.index')}}"class="btn-lg active btn btn-primary"  >Back to My Offers</a> 
                         
-                           
-                            
-                          
 
-                                <a href="{{route('offers.buy',$offer)}}" class="btn btn-success btn-lg active"role="button" aria-pressed="true"id="buy"  >Buy</a>
+                    
+                         <a id= "buy" href="{{route('offers.buy',$offer)}}" class="btn btn-success btn-lg active"role="button" aria-pressed="true"id="buy"  >Buy</a>
                                 <script>
                                 if (document.getElementById("state").value == "false" || document.getElementById("valid").value == "false" ) {
                                     $("#buy").hide();
@@ -44,10 +40,24 @@
                         <div><img src="{{asset('/storage/images/'.$offer->image)}}" class="img-fluid img-thumbnail" width="250"></div>
                         </div>
                         <br>
-                        <div><p>{{$offer->content}}</p></div>
+                        <div><h4>{{$offer->content}}<h4></div>
                                 <div>
 
-                                   
+                                    <table class="table ">
+                                                                        <thead>
+                                                                            <tr>
+                                                                      
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                            
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        </table>     
+                            </div>
                             
                           
 
@@ -68,6 +78,19 @@
                                                                 <td>{{$offer->owner}}</td>
                                                                 <td>{{$offer->value}}</td>
                                                                 <td>{{$offer->created_at}}</td>
+                                                                </tr>
+                                                            
+                                                            </tbody>
+                                                            </table>
+                                                            <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                <th scope="col">The Last Transaction Hash</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                <td>{{$offer->tx}}</td>
                                                                 </tr>
                                                             
                                                             </tbody>
@@ -101,7 +124,7 @@
                                     @foreach($comments as $comment)
                                             <tr>          
                                                     <th scope="row">{{$comment->id}}</th>
-                                                    <td>{{$comment->body}}</td>
+                                                    <td>{{$comment->content}}</td>
                                                     <td>{{$comment->user->name}}</td>
                                                     <td>{{$comment->created_at}}</td>
                                                     <td>
@@ -114,14 +137,15 @@
                                            
                             </table>
                             <div>
-                            <form action="{{route('comments.addpost',$offer)}}" method="post">
-                                    @csrf     
+                            <form action="{{route('comments.create',$offer)}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        
                                     
-                                    <input name = "offer_id" value= "{{ $offer->id }} " type="hidden"checked></input>
-                                    <button type="submit" class="btn btn-primary">Create Comment</button>   
-                                    </form> 
+                                   
+                                <button type="submit" class="btn btn-primary">Create Comment</button>   
+                            </form> 
                                     <br>
-                            <a href="{{route('offers.index')}}"class="btn btn-primary">Back to My Offers</a>  </div>
+                             <a href="{{route('offers.index')}}"class="btn btn-primary">Back to My Offers</a>  </div>
                         </div>
                     </div>
                     <div class="parent">{{$comments->links()}} </div> 

@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-11">
             <div class="card">
-                <div class="p-3 mb-2 bg-primary text-white"><h2><p class="text-center">The Cities in Country</h2></div>
+                <div class="p-3 mb-2 bg-primary text-white"><h2><p class="text-center">The Areas in Country</h2></div>
                     <div class="card-body">
                         <table class="table">
                                 <thead> 
@@ -43,7 +43,7 @@
                             </table>
                            
                                             <div> @can('delete-users') 
-                                                <a href="{{route('areas.create')}}"class="btn btn-primary">Create a New City</a>
+                                                <a href="{{route('areas.create')}}"class="btn btn-primary">Create a New Area</a>
                                                 @endcan
                                             </div>  
                         <div>

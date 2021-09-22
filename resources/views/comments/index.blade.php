@@ -29,7 +29,7 @@
                                                                 <td>{{$comment->user->name}}</td>
                                                                 <td>
                                                                 <a href="{{route('comments.edit',$comment)}}"><button type="button" class="btn btn-primary float-left">Edit</button></a>
-                                                            <form action = "{{route('comments.destroy', $comment)}}" method="POST" class="float-left"></a>
+                                                            <form action = "{{route('comments.destroy', $comment->id)}}" method="POST" class="float-left"></a>
                                                                 @csrf
                                                                     {{ method_field('DELETE')}}
                                                                     <button type="submit" class="btn btn-danger">Delete</button></td></a>

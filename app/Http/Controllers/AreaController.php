@@ -33,23 +33,24 @@ class AreaController extends Controller
 
     public function store(Request $request)
     {
-       
+        $user = Auth::user();
+        
         $validatedData = $request->validate([
-            'name' =>'required|max:30',
-            'description' =>'required|max:300',
-            'user_id' =>'required'
+            'name' =>'required|string|max:30',
+            'description' =>'required|string|max:300'
+            
         ]); 
         
         $a = new Area;
         $a->name = $validatedData['name'];
         $a->description = $validatedData['description'];
-        $a->user_id = $validatedData['user_id'];
+        $a->user_id = $user->id;
         $a->save();
 
        
-        $name = $a->name;
+       
 
-        return redirect()->route('areas.index')->with('success', 'City: '.$name. ' was saved');
+        return redirect()->route('areas.index');
       
     }
 
@@ -72,7 +73,8 @@ class AreaController extends Controller
    
     public function destroy($id)
     {
-        $area = Area::findOrFail($id);
+        
+        $area = Area::findOrFail($id);     
         $name = $area->name;
         $area->delete();
 

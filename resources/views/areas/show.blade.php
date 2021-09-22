@@ -16,10 +16,10 @@
             <div class="row justify-content-center">
                 <div class="col-11">
                     <div class="card">
-                        <div class="p-3 mb-3 bg-primary text-white"><h2><p class="text-center"> City Name: {{$area->name}}</h2></div>
+                        <div class="p-3 mb-3 bg-primary text-white"><h2><p class="text-center"> Area Name: {{$area->name}}</h2></div>
                             <div class="card-body">
                                     
-                                    <form action="{{route('offers.addblog',$area)}}" method="post">
+                                    <form action="{{route('offers.addarea',$area)}}" method="post">
                                         @csrf   
                                         
                                         
@@ -42,6 +42,7 @@
                                     <thead> 
                                             <tr>
                                             <th scope="col">ID</th>
+                                            <th scope="col">Certificate Id</th>
                                             <th scope="col">Price (wei)</th>
                                             <th scope="col">Title:</th>
                                             <th scope="col">The Owner</th>
@@ -55,6 +56,7 @@
                                         @foreach($offers as $offer)
                                                 <tr>          
                                                         <th scope="row">{{$offer->id}}</th>
+                                                        <td>{{$offer->certificate_id}}</td>
                                                         <td>{{$offer->value}}</td>
                                                         <td>{{$offer->title}}</td>
                                                         <td>{{$offer->user->name}}</td>

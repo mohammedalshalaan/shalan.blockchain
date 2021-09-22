@@ -1,56 +1,61 @@
 @extends('layouts.app')
 
-@section('content')
 
+@section('content')
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-11">
             <div class="card">
-                <div class="card-header">The City</div>
-
-                <div class="card-body">
-               
-                <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Title:</th>
-      <th scope="col">Actions:</th>
-    </tr>
-  </thead>
-  <tbody>
- 
-  <tr>
-      <th scope="row">number</th>
-      <td>1</td>
-     
-      <td>
-     
-        <a href="link"><button type="button" class="btn btn-primary float-left">Show</button></a>
-   
-      <form action = "link" method="POST" class="float-left">
-      @csrf
-      {{ method_field('DELETE')}}
-      <button type="submit" class="btn btn-danger">Delete</button></td></a>
-      </form>
-
-    </tr>
-
-  </tbody>
-</table>
-
-<a href="offers.show" class="btn btn-primary">Add City</a></td>
-
-                   
+                <div class="p-3 mb-2 bg-primary text-white"><h2><p class="text-center">The Areas in Country</h2></div>
+                    <div class="card-body">
+                        <table class="table">
+                                <thead> 
+                                        <tr >
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Number Of Offers</th>
+                                        <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                <tbody>
+                                  
+                                            @foreach($areas as $area)
+                                                <tr>          
+                                                        <th scope="row">{{$area->id}}</th>
+                                                        <td>{{$area->name}}</td>
+                                                        <td>{{$area->total_offer_for_sell}}</td>
+                                                        <td>
+                                                        <a href="{{route('areas.show',$area)}}"><button type="button" class="btn btn-primary float-left">show</button></a>                                              
+                                                        
+                                                        @can('delete-users') 
+                                                    <form action = "{{route('areas.destroy', $area)}}" method="POST" class="float-left"></a>
+                                                        @csrf
+                                                        {{ method_field('DELETE')}}
+                                                        <button type="submit" class="btn btn-danger">Delete</button>@endcan</td></a>
+                                                    </form>
+                                                </tr>
+                                            
+                                            @endforeach
+                                            
+                                    </tbody>
+                                    
+                            </table>
+                           
+                                            <div> @can('delete-users') 
+                                                <a href="{{route('areas.create')}}"class="btn btn-primary">Create a New Area</a>
+                                                @endcan
+                                            </div>  
+                        <div>
+                             
                 </div>
-            
-
+                
             </div>
+            <div class="parent">{{$areas->links()}} </div>
         </div>
     </div>
 </div>
 
 @include('sweetalert::alert')
-
 @endsection
+

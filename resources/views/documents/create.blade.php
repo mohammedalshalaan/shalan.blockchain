@@ -31,11 +31,14 @@
                                            
                                                     
                                                 <div class="mb-4">
-                                                <label for="formFile" class="form-label">Upload Image</label>
+                                                <h4>Upload More Images for The Property</h4>
+                                                <br>
+                                                <p><strong>Note:</strong> The image that has been uploaded within the property information in the previuos page will be hashed and included by the transaction that will be send to the Ethereum blockchain. However, these images will be saved by the local database.</p>
+                                                <div class="mb-4">
                                                 <input type="file" name="userfile[]" value="" multiple="">
                                                 </div>
 
-                                            <input name = "user_id" value= "{{ $user->id }} " type="hidden"checked></input>
+                                            
                                             <input name = "area_id" value= "{{ $area->id }} " type="hidden"checked></input>
                                             
                                             <a href="{{route('areas.show',$area)}}"class="float-left">

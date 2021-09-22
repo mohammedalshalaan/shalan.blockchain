@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Offer;
+use App\Comment;
 use App\Area;
 use App\Property;
 use Auth;
@@ -65,5 +66,26 @@ class UserController extends Controller
        
         return view('admin.users.profile', ['user'=>$user]);   
      }
+     
+      public function analysis()
+    {
+
+       $your_offers = Auth::User()->offers();
+       $your_comments = Auth::User()->comments();
+
+       $offers = Auth::User()->offers()->paginate(5);
+
+       $offers_chart = Offer::all();
+       $comments_chart = Comment::all();
+    
+
+       return view('admin.users.analysis', [
+           'your_offers'=>$your_offers ,
+           'offers'=>$offers,
+           'your_comments'=> $your_comments,
+           'offers_chart'=> $offers_chart,
+           'comments_chart'=> $comments_chart]);
+    }
+
 
 }

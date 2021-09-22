@@ -17,6 +17,10 @@ class PropertyController extends Controller
 {
     public function index()
     {
+         $user = Auth::user();
+        if ($user->id != 1) {// only the admin.
+            return abort(404);
+        }
 
         $properties = Property::latest()->paginate(5);
 
@@ -25,7 +29,11 @@ class PropertyController extends Controller
 
     public function create()
     {
-        $user = Auth::user();
+         $user = Auth::user();
+        if ($user->id != 1) {// only the admin.
+            return abort(404);
+        }
+       
         $properties = Property::all();
 
 
@@ -34,10 +42,13 @@ class PropertyController extends Controller
 
     public function store(Request $request)
     {
+         $user = Auth::user();
+        if ($user->id != 1) {// only the admin.
+            return abort(404);
+        }
        
         $validatedData = $request->validate([
-            
-            
+    
             'owner' =>'required | max:42 | min:42' ,
            
             'certificate_id'=>'required | unique:App\Property,certificate_id'
@@ -46,43 +57,15 @@ class PropertyController extends Controller
         $a = new Property;
         $a->owner = $validatedData['owner'];
         $a->certificate_id = $validatedData['certificate_id'];
-        
         $a->save();
-
-       
-        $name = $a->name;
-
-        return redirect()->route('properties.index')->with('success', 'The Property: '.$name. ' was saved');
-      
+        return redirect()->route('properties.index');  
     }
 
-    public function show(property $property)
-    {
-        $offers = $property->offers()->where('state' ,'=', 'true')->latest()->paginate(5);
-      
-        $offersForSell = $property->offers()->where('state' ,'=', 'true')->count();
-        $property->total_offer_for_sell = $offersForSell;
-        $property->save();
-       
-        $user = Auth::user();
-       
-       
-        return view('properties.show', ['property'=>$property, 'offers'=>$offers , 'user'=>$user]);
-    }
-
-   
     public function destroy($id)
-    {
+    {  
         $property = Property::findOrFail($id);
         $name = $property->name;
         $property->delete();
-
         return redirect()->route('properties.index')->with('success', 'Property ' .$name. ' was deleted');
-    
     }
-
-   
-
-   
-
 }

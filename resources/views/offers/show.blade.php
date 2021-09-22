@@ -75,6 +75,19 @@
                                                             
                                                             </tbody>
                                                             </table>
+                                                            <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                <th scope="col">The Last Transaction Hash</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                <td>{{$offer->tx}}</td>
+                                                                </tr>
+                                                            
+                                                            </tbody>
+                                                            </table>
                             <div class="mb-4">
                                     <a href="{{route('documents.show',$offer)}}"class="btn btn-primary">Show All Pictures</a> 
              
@@ -117,12 +130,13 @@
                                            
                             </table>
                             <div>
-                            <form action="{{route('comments.addpost',$offer)}}" method="post">
-                                    @csrf     
+                            <form action="{{route('comments.create',$offer)}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        
                                     
-                                    <input name = "offer_id" value= "{{ $offer->id }} " type="hidden"checked></input>
-                                    <button type="submit" class="btn btn-primary">Create Comment</button>   
-                                    </form> 
+                                   
+                                <button type="submit" class="btn btn-primary">Create Comment</button>   
+                            </form> 
                                     <br>
                             <a href="{{route('areas.show',$offer->area)}}"class="btn btn-primary">Back to Offers Page</a>  </div>
                         </div>
