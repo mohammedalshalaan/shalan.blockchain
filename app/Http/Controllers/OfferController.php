@@ -243,7 +243,10 @@ class OfferController extends Controller
         $offers = $area->offers()->latest()->paginate(5); //collects the whole offers in this area object according to the creation date, then paginates the result, so each page will contain 5 offers. 
         
         Mail::to($user->email)->send(new \App\Mail\RSBlockchain($offer)); // informs the buyer
-       Mail::to($olduser->email)->send(new \App\Mail\RSBlockchain($offer)); // informs the seller
+        if ($user != $olduser){
+            Mail::to($olduser->email)->send(new \App\Mail\RSBlockchain($offer)); // informs the seller
+        }
+        
 
         return view('offers.confirm', ['area'=>$area, 'offers'=>$offers , 'user'=>$user, 'offer'=>$offer]); // It returns the offers.confirm view with the area, offers, user and offer objects.
  
